@@ -27,7 +27,11 @@ function Note(title, content) {
   this.noteContent = content;
 }
 Note.prototype.show = function() {
-  return ("[" + this.noteTitle + "]" + "\n" + this.noteContent);
+  var returnString = "[" + this.noteTitle + "]\n";
+  for (var i in this.noteContent) {
+    returnString += this.noteContent[i].show() + "\n";
+  }
+  return returnString;
 }
 Object.defineProperty(Note.prototype, "title", {
   get: function() {
@@ -39,7 +43,7 @@ Object.defineProperty(Note.prototype, "title", {
 })
 Object.defineProperty(Note.prototype, "content", {
   get: function() {
-    return this.noteTitle;
+    return this.noteContent;
   },
   set: function(value) {
     this.noteContent = value;
@@ -72,15 +76,15 @@ NoteList.prototype.removeNote = function(index) {
 //===================
 
 var newNoteList = new NoteList;
-newNoteList.add(new Note("1 New Header", "Ololo"));
-newNoteList.add(new Note("2 Header", "First note"));
-newNoteList.add(new Note("3 Header2", "Second note"));
-newNoteList.add(new Note("4 Header3", "Third note"));
-newNoteList.removeNote(0);
+newNoteList.add(new Note("1 New Header", [new NoteContent (NoteType.Text, "Ololo")] ));
+newNoteList.add(new Note("2 Header", [new NoteContent(NoteType.Text, "First note")] ));
+newNoteList.add(new Note("3 Header2", [new NoteContent(NoteType.Checkbox, "Second note", true),
+                                       new NoteContent(NoteType.Text, "Little Description"),
+                                       new NoteContent(NoteType.Checkbox,"Other line of text", false)] ));
+newNoteList.add(new Note("4 Header3", [new NoteContent(NoteType.Checkbox, "Third note")]));
+
+//newNoteList.removeNote(0);
 
 console.log(newNoteList.show());
-console.log(newNoteList.getNote(1).show());
 
 
-var newContent = new NoteContent(NoteType.Text, "Some text field", false);
-console.log(newContent.show());
