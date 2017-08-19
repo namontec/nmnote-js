@@ -41,15 +41,20 @@ NoteList.prototype.show = function() {
 NoteList.prototype.getNote = function(index) {
   return this.noteList[index];
 }
+NoteList.prototype.removeNote = function(index) {
+  this.noteList.splice(index,1);
+}
 
 //===================
 var newNote = new Note("Header", "First note");
 console.log(newNote.show());
 
 var newNoteList = new NoteList;
-newNoteList.add(new Note("New Header", "Ololo"));
-newNoteList.add(new Note("Header", "First note"));
-newNoteList.add(new Note("Header2", "Second note"));
-newNoteList.add(new Note("Header3", "Third note"));
+newNoteList.add(new Note("1 New Header", "Ololo"));
+newNoteList.add(new Note("2 Header", "First note"));
+newNoteList.add(new Note("3 Header2", "Second note"));
+newNoteList.add(new Note("4 Header3", "Third note"));
+newNoteList.removeNote(0);
+
 console.log(newNoteList.show());
 console.log(newNoteList.getNote(1).show());
