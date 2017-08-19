@@ -1,3 +1,26 @@
+
+
+
+var NoteType = {Text: 0, Checkbox: 1};
+
+//NoteContent clas
+function NoteContent(noteType, content, checkStatus = false) {
+  this.noteContent = content;
+  this.noteType = noteType;
+  this.isChecked = checkStatus;
+}
+NoteContent.prototype.show = function() {
+  var returnString = "Empty";
+  if (this.noteType == NoteType.Text) {
+    returnString = this.noteContent;
+  }
+  if (this.noteType == NoteType.Checkbox) {
+    returnString = "[" + ((this.isChecked == true) ? "*" : " ") + "] " + this.noteContent;
+  }
+  return returnString;
+}
+
+
 // Note class
 function Note(title, content) {
   this.noteTitle = title;
@@ -45,9 +68,8 @@ NoteList.prototype.removeNote = function(index) {
   this.noteList.splice(index,1);
 }
 
+
 //===================
-var newNote = new Note("Header", "First note");
-console.log(newNote.show());
 
 var newNoteList = new NoteList;
 newNoteList.add(new Note("1 New Header", "Ololo"));
@@ -58,3 +80,7 @@ newNoteList.removeNote(0);
 
 console.log(newNoteList.show());
 console.log(newNoteList.getNote(1).show());
+
+
+var newContent = new NoteContent(NoteType.Text, "Some text field", false);
+console.log(newContent.show());
