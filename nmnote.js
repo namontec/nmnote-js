@@ -38,6 +38,9 @@ NoteList.prototype.show = function() {
   }
   return notes;
 }
+NoteList.prototype.getNote = function(index) {
+  return this.noteList[index];
+}
 
 //===================
 var newNote = new Note("Header", "First note");
@@ -49,3 +52,4 @@ newNoteList.add(new Note("Header", "First note"));
 newNoteList.add(new Note("Header2", "Second note"));
 newNoteList.add(new Note("Header3", "Third note"));
 console.log(newNoteList.show());
+console.log(newNoteList.getNote(1).show());
