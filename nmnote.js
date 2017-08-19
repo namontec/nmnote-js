@@ -3,11 +3,11 @@ function Note(title, content) {
   this.noteTitle = title;
   this.noteContent = content;
 }
-Note.prototype.show = function () {
-  return (this.noteTitle + "\n" + this.noteContent);
+Note.prototype.show = function() {
+  return ("[" + this.noteTitle + "]" + "\n" + this.noteContent);
 }
 Object.defineProperty(Note.prototype, "title", {
-  get: function () {
+  get: function() {
     return this.noteTitle;
   },
   set: function (value) {
@@ -24,8 +24,28 @@ Object.defineProperty(Note.prototype, "content", {
 })
 
 
+//NoteList class
+function NoteList() {
+  this.noteList = [];
+}
+NoteList.prototype.add = function(note) {
+  this.noteList.push(note);
+}
+NoteList.prototype.show = function() {
+  var notes = "";
+  for (var i in this.noteList) {
+    notes += this.noteList[i].show() + "\n";
+  }
+  return notes;
+}
+
 //===================
 var newNote = new Note("Header", "First note");
-newNote.title = "one";
-newNote.content = "other";
 console.log(newNote.show());
+
+var newNoteList = new NoteList;
+newNoteList.add(new Note("New Header", "Ololo"));
+newNoteList.add(new Note("Header", "First note"));
+newNoteList.add(new Note("Header2", "Second note"));
+newNoteList.add(new Note("Header3", "Third note"));
+console.log(newNoteList.show());
