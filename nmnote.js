@@ -73,6 +73,11 @@ NoteList.prototype.removeNote = function(index) {
 }
 
 
+function drawBox(text) {
+  
+}
+
+
 //===================
 
 var newNoteList = new NoteList;
