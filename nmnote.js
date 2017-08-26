@@ -73,8 +73,17 @@ NoteList.prototype.removeNote = function(index) {
 }
 
 
-function drawBox(text) {
-  
+function getWidth(textArray) {
+  return textArray.reduce(function(max, i) {
+    return Math.max(max, i.length)
+  }, 0) 
+}
+
+function DrawBox(text) {
+  this.text = text;
+  textArray = text.split("\n");
+  this.height = textArray.length;
+  this.width = getWidth(textArray);
 }
 
 
@@ -92,4 +101,7 @@ newNoteList.add(new Note("4 Header3", [new NoteContent(NoteType.Checkbox, "Third
 
 console.log(newNoteList.show());
 
+
+a = ["daaaaaa", "eeaaf","333dddddd"];
+console.log(getWidth(a));
 
