@@ -31,7 +31,7 @@ Note.prototype.show = function() {
   for (var i in this.noteContent) {
     returnString += this.noteContent[i].show() + "\n";
   }
-  return returnString;
+  return drawBox(returnString, boxBorder);
 }
 Object.defineProperty(Note.prototype, "title", {
   get: function() {
@@ -73,17 +73,46 @@ NoteList.prototype.removeNote = function(index) {
 }
 
 
+//DrawBox functions
 function getWidth(textArray) {
   return textArray.reduce(function(max, i) {
     return Math.max(max, i.length)
   }, 0) 
 }
 
-function DrawBox(text) {
-  this.text = text;
-  textArray = text.split("\n");
-  this.height = textArray.length;
-  this.width = getWidth(textArray);
+var Border = {TL: 0, TM: 1, TR: 2,
+              ML: 3, MM: 4, MR: 5,
+              BL: 6, BM: 7, BR: 8 };
+
+var boxBorder = [ "┌", "─", "┐",
+                  "│", " ", "│",
+                  "└", "─", "┘"]    
+                  
+function drawLine(symbol, counter) {
+  var outLine = "";
+  for (var i = 0; i < counter; i++) {
+    outLine += symbol;
+  }
+  return outLine;
+}
+
+function drawBox(text, boxBorder) {
+  var textArray = text.split("\n");
+  var height = textArray.length;
+  var width = getWidth(textArray);
+
+  var outText = ""
+
+  outText += boxBorder[Border.TL] + drawLine(boxBorder[Border.TM], width) + boxBorder[Border.TR];
+  outText += "\n";
+  for (var h = 0; h < height-1; h++) {
+    outText += boxBorder[Border.ML]
+    outText += textArray[h] + drawLine(boxBorder[Border.MM], width - textArray[h].length); 
+    outText += boxBorder[Border.MR] + "\n";
+  }
+
+  outText += boxBorder[Border.BL] + drawLine(boxBorder[Border.BM], width) + boxBorder[Border.BR];
+  return outText;
 }
 
 
@@ -99,9 +128,9 @@ newNoteList.add(new Note("4 Header3", [new NoteContent(NoteType.Checkbox, "Third
 
 //newNoteList.removeNote(0);
 
-console.log(newNoteList.show());
+console.log(drawBox(newNoteList.show(), boxBorder));
 
 
-a = ["daaaaaa", "eeaaf","333dddddd"];
-console.log(getWidth(a));
+
+//console.log(drawLine("-", 5));
 
